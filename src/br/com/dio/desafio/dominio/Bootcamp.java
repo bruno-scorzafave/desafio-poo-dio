@@ -14,6 +14,15 @@ public class Bootcamp {
     private Set<Dev> devsInscritos = new HashSet<>();
     private Set<Conteudo> conteudos = new LinkedHashSet<>();
 
+    public boolean verSeBootcampFoiConcluido(Set<Conteudo> conteudosConcluidos) {
+        for (Conteudo conteudo : conteudos) {
+            if (!conteudosConcluidos.contains(conteudo)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     public String getNome() {
         return nome;

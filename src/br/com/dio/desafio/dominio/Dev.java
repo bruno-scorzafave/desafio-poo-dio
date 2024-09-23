@@ -12,11 +12,14 @@ public class Dev {
         bootcamp.getDevsInscritos().add(this);
     }
 
-    public void progredir() {
-        Optional<Conteudo> conteudo = this.conteudosInscritos.stream().findFirst();
-        if(conteudo.isPresent()) {
-            this.conteudosConcluidos.add(conteudo.get());
-            this.conteudosInscritos.remove(conteudo.get());
+    public void progredir(Bootcamp bootcamp) {
+        Optional<Conteudo> conteudoInscrito = this.conteudosInscritos.stream().filter( n -> bootcamp.getConteudos().contains(n)).findFirst();
+        if(conteudoInscrito.isPresent()) {
+            this.conteudosConcluidos.add(conteudoInscrito.get());
+            this.conteudosInscritos.remove(conteudoInscrito.get());
+            if (bootcamp.verSeBootcampFoiConcluido(this.conteudosConcluidos)) {
+                System.out.println("Parabéns, você concluiu o bootcamp " + bootcamp.getNome());
+            }
         } else {
             System.err.println("Você não está matriculado em nenhum conteúdo!");
         }
